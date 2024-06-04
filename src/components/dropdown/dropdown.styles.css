@@ -5,6 +5,8 @@
     top: 80px;
     list-style: none;
     text-align: center;
+    right: 335px;
+    
    
   }
   
@@ -23,12 +25,14 @@
   }
   
   .dropdown-link {
+    text-decoration: none;
     display: block;
     height: 100%;
     width: 100%;
-    text-decoration: none;
     color: #fff;
-    padding: 16px;
+    padding: 16px; 
+     
+  
   }
   
   @media screen and (max-width: 960px) {

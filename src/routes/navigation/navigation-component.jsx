@@ -34,7 +34,7 @@ return(
   <>
     <nav className='navbar'>
       <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-      PET EXPO <i class="fa-solid fa-shield-dog"></i>
+      PET EXPO <i className="fa-solid fa-shield-dog"></i>
       </Link>
     <div className='menu-icon' onClick={handleClick}>
 

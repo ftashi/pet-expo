@@ -1,11 +1,11 @@
 import React from "react";
+import DogCarts from "../../components/dog-cart/dog-cart.component";
 
-const DogsPage = () => {
+export default function DogsPage () {
 
     return(
-        
-            <h1>Dogs</h1>
-        
+<>
+    <DogCarts/>
+</>
     )
 }
-export default DogsPage;
