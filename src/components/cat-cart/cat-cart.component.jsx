@@ -136,6 +136,7 @@ const CatCarts = () => {
           style={customStyles}
           contentLabel="Cat Details"
         >
+        
           <h2>{selectedCat.name}</h2>
           <p><strong>Origin:</strong> {selectedCat.origin}</p>
           <p><strong>Temperament:</strong> {selectedCat.temperament}</p>

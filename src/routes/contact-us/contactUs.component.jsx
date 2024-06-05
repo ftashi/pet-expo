@@ -261,7 +261,7 @@ const ContactUs = () => {
         <Row>
           <Section className="left">
             <ContactTitle>
-              <h2>Get In Touch</h2>
+              <h2>Contact Us</h2>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
             </ContactTitle>
             <ContactInfo>
