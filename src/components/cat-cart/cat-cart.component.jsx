@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -94,8 +95,10 @@ const CatCarts = () => {
   }, [query]);
 
   const openModal = (cat) => {
-    setSelectedCat(cat);
-    setModalIsOpen(true);
+    if (!modalIsOpen) {
+      setSelectedCat(cat);
+      setModalIsOpen(true);
+    }
   };
 
   const closeModal = () => {
@@ -146,4 +149,9 @@ const CatCarts = () => {
 };
 
 export default CatCarts;
+
+
+
+
+
 
