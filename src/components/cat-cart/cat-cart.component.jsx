@@ -4,6 +4,19 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
+const Container = styled.div`
+  padding: 20px;
+`;
+
+const SearchBar = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+`;
+
 const CartContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -63,11 +76,12 @@ const CatCarts = () => {
   const [error, setError] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedCat, setSelectedCat] = useState(null);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const fetchCats = async () => {
       try {
-        const response = await axios.get('https://freetestapi.com/api/v1/cats');
+        const response = await axios.get(`https://freetestapi.com/api/v1/cats?search=${query}`);
         setCats(response.data);
       } catch (error) {
         setError(error);
@@ -77,7 +91,7 @@ const CatCarts = () => {
     };
 
     fetchCats();
-  }, []);
+  }, [query]);
 
   const openModal = (cat) => {
     setSelectedCat(cat);
@@ -95,7 +109,13 @@ const CatCarts = () => {
   Modal.setAppElement('#root');
 
   return (
-    <>
+    <Container>
+      <SearchBar
+        type="text"
+        placeholder="Search for cats..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
       <CartContainer>
         {cats.map((cat) => (
           <Card key={cat.id} onClick={() => openModal(cat)}>
@@ -121,8 +141,9 @@ const CatCarts = () => {
           <button onClick={closeModal}>Close</button>
         </Modal>
       )}
-    </>
+    </Container>
   );
 };
 
 export default CatCarts;
+

@@ -4,6 +4,19 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
+const Container = styled.div`
+  padding: 20px;
+`;
+
+const SearchBar = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+`;
+
 const CartContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -20,7 +33,7 @@ const Card = styled.div`
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s;
-  
+
   &:hover {
     transform: scale(1.05);
   }
@@ -63,11 +76,12 @@ const BirdCarts = () => {
   const [error, setError] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedBird, setSelectedBird] = useState(null);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const fetchBirds = async () => {
       try {
-        const response = await axios.get('https://freetestapi.com/api/v1/birds');
+        const response = await axios.get(`https://freetestapi.com/api/v1/birds?search=${query}`);
         setBirds(response.data);
       } catch (error) {
         setError(error);
@@ -77,7 +91,7 @@ const BirdCarts = () => {
     };
 
     fetchBirds();
-  }, []);
+  }, [query]);
 
   const openModal = (bird) => {
     setSelectedBird(bird);
@@ -95,7 +109,13 @@ const BirdCarts = () => {
   Modal.setAppElement('#root');
 
   return (
-    <>
+    <Container>
+      <SearchBar
+        type="text"
+        placeholder="Search for birds..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
       <CartContainer>
         {birds.map((bird) => (
           <Card key={bird.id} onClick={() => openModal(bird)}>
@@ -124,8 +144,14 @@ const BirdCarts = () => {
           <button onClick={closeModal}>Close</button>
         </Modal>
       )}
-    </>
+    </Container>
   );
 };
 
 export default BirdCarts;
+
+
+
+
+
+

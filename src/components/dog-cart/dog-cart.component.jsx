@@ -4,6 +4,19 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
+const Container = styled.div`
+  padding: 20px;
+`;
+
+const SearchBar = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+`;
+
 const CartContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -63,11 +76,12 @@ const DogCarts = () => {
   const [error, setError] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedDog, setSelectedDog] = useState(null);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const fetchDogs = async () => {
       try {
-        const response = await axios.get('https://freetestapi.com/api/v1/dogs');
+        const response = await axios.get(`https://freetestapi.com/api/v1/dogs?search=${query}`);
         setDogs(response.data);
       } catch (error) {
         setError(error);
@@ -77,7 +91,7 @@ const DogCarts = () => {
     };
 
     fetchDogs();
-  }, []);
+  }, [query]);
 
   const openModal = (dog) => {
     setSelectedDog(dog);
@@ -95,7 +109,13 @@ const DogCarts = () => {
   Modal.setAppElement('#root');
 
   return (
-    <>
+    <Container>
+      <SearchBar
+        type="text"
+        placeholder="Search for dogs..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
       <CartContainer>
         {dogs.map((dog) => (
           <Card key={dog.id} onClick={() => openModal(dog)}>
@@ -124,8 +144,9 @@ const DogCarts = () => {
           <button onClick={closeModal}>Close</button>
         </Modal>
       )}
-    </>
+    </Container>
   );
 };
 
 export default DogCarts;
+
