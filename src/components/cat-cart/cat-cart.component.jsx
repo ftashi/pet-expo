@@ -20,7 +20,7 @@ const Card = styled.div`
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s;
-  
+
   &:hover {
     transform: scale(1.05);
   }
@@ -57,18 +57,18 @@ const customStyles = {
   },
 };
 
-const BirdCarts = () => {
-  const [birds, setBirds] = useState([]);
+const CatCarts = () => {
+  const [cats, setCats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedBird, setSelectedBird] = useState(null);
+  const [selectedCat, setSelectedCat] = useState(null);
 
   useEffect(() => {
-    const fetchBirds = async () => {
+    const fetchCats = async () => {
       try {
-        const response = await axios.get('https://freetestapi.com/api/v1/birds');
-        setBirds(response.data);
+        const response = await axios.get('https://freetestapi.com/api/v1/cats');
+        setCats(response.data);
       } catch (error) {
         setError(error);
       } finally {
@@ -76,17 +76,17 @@ const BirdCarts = () => {
       }
     };
 
-    fetchBirds();
+    fetchCats();
   }, []);
 
-  const openModal = (bird) => {
-    setSelectedBird(bird);
+  const openModal = (cat) => {
+    setSelectedCat(cat);
     setModalIsOpen(true);
   };
 
   const closeModal = () => {
     setModalIsOpen(false);
-    setSelectedBird(null);
+    setSelectedCat(null);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -97,30 +97,27 @@ const BirdCarts = () => {
   return (
     <>
       <CartContainer>
-        {birds.map((bird) => (
-          <Card key={bird.id} onClick={() => openModal(bird)}>
-            <CardImage src={bird.image} alt={bird.name} />
-            <CardTitle>{bird.name}</CardTitle>
-            <CardPlace>{bird.place_of_found}</CardPlace>
+        {cats.map((cat) => (
+          <Card key={cat.id} onClick={() => openModal(cat)}>
+            <CardImage src={cat.image} alt={cat.name} />
+            <CardTitle>{cat.name}</CardTitle>
+            <CardPlace>{cat.origin}</CardPlace>
           </Card>
         ))}
       </CartContainer>
       
-      {selectedBird && (
+      {selectedCat && (
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
           style={customStyles}
-          contentLabel="Bird Details"
+          contentLabel="Cat Details"
         >
-          <h2>{selectedBird.name}</h2>
-          <p><strong>Species:</strong> {selectedBird.species}</p>
-          <p><strong>Family:</strong> {selectedBird.family}</p>
-          <p><strong>Habitat:</strong> {selectedBird.habitat}</p>
-          <p><strong>Diet:</strong> {selectedBird.diet}</p>
-          <p><strong>Description:</strong> {selectedBird.description}</p>
-          <p><strong>Weight:</strong> {selectedBird.weight_kg} kg</p>
-          <p><strong>Height:</strong> {selectedBird.height_cm} cm</p>
+          <h2>{selectedCat.name}</h2>
+          <p><strong>Origin:</strong> {selectedCat.origin}</p>
+          <p><strong>Temperament:</strong> {selectedCat.temperament}</p>
+          <p><strong>Colors:</strong> {selectedCat.colors.join(', ')}</p>
+          <p><strong>Description:</strong> {selectedCat.description}</p>
           <button onClick={closeModal}>Close</button>
         </Modal>
       )}
@@ -128,4 +125,4 @@ const BirdCarts = () => {
   );
 };
 
-export default BirdCarts;
+export default CatCarts;

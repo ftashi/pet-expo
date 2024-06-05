@@ -5,7 +5,7 @@ export default function DogsPage () {
 
     return(
 <>
-    <DogCarts/>
+ <DogCarts />
 </>
     )
 }
