@@ -13,6 +13,7 @@ const DirectoryItem = ({ category }) => {
         <BackgroundImage $imageUrl={imageUrl} />
         <Body>
           <h2>{title}</h2>
+          <p>Click to explore</p>
         </Body>
       </DirectoryItemContainer>
     );

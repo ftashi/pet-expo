@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     min-height: 100vh;
-    background-color: #2e2e2e;
+    background-color: #000000;
     color: white;
   }
 `;
@@ -176,7 +176,7 @@ const Form = styled.form`
       width: 100%;
       font-size: 18px;
       padding: 2px 0;
-      background-color: #2e2e2e;
+      background-color: #000000;
       color: #ddd;
       border: none;
       border-bottom: 2px solid #666;
